@@ -4,6 +4,8 @@ import { FaGoogle, FaEnvelope, FaLock } from "react-icons/fa";
 import master from "../assets/master-bg.jpg";
 import logo from "../assets/logo.png";
 
+import { loginUser, loginWithGoogle } from "../services/auth";
+
 import { useAuth } from "../context/AuthContext";
 
 export default function Login() {
@@ -11,26 +13,28 @@ export default function Login() {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { googleSignIn } = useAuth(); // Get googleSignIn from context
-
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      await loginWithGoogle();
       navigate("/home");
     } catch (error) {
       console.error(error);
-      alert("Google Sign In Failed");
+      alert("Google Sign In Failed: " + error.message);
     }
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    // TODO: Integrate actual auth logic here
-    setTimeout(() => {
-        setLoading(false);
-        navigate("/home"); // Temporary redirect
-    }, 1500);
+    try {
+      await loginUser(email, password);
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      alert("Login Failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

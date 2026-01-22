@@ -4,6 +4,7 @@ import { FaUser, FaEnvelope, FaLock, FaMapMarkerAlt, FaPhone, FaGoogle } from "r
 import master from "../assets/master-bg.jpg";
 import logo from "../assets/logo.png";
 import { useAuth } from "../context/AuthContext";
+import { registerUser, createUserProfile, loginWithGoogle } from "../services/auth";
 
 export default function Register() {
   const [formData, setFormData] = useState({
@@ -16,15 +17,13 @@ export default function Register() {
   });
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
-  const { googleSignIn } = useAuth();
-
   const handleGoogleSignIn = async () => {
     try {
-      await googleSignIn();
+      await loginWithGoogle();
       navigate("/home");
     } catch (error) {
       console.error(error);
-      alert("Google Sign In Failed");
+      alert("Google Sign In Failed: " + error.message);
     }
   };
 
@@ -34,12 +33,27 @@ export default function Register() {
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    if (formData.password !== formData.confirmPassword) {
+      alert("Passwords do not match");
+      return;
+    }
     setLoading(true);
-    // TODO: Integrate actual register logic
-    setTimeout(() => {
-        setLoading(false);
-        navigate("/login"); 
-    }, 1500);
+    try {
+      const user = await registerUser(formData.email, formData.password);
+      await createUserProfile(user.uid, {
+        name: formData.name,
+        phone: formData.phone,
+        city: formData.city,
+        email: formData.email,
+        createdAt: new Date(),
+      });
+      navigate("/home");
+    } catch (error) {
+      console.error(error);
+      alert("Registration Failed: " + error.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
