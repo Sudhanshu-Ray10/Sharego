@@ -70,8 +70,8 @@ const MyRequests = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-50 flex justify-center py-12 px-4 animate-slideDown">
-      <div className="bg-white rounded-3xl shadow-xl p-8 w-full max-w-5xl border border-gray-100 relative">
+    <div className="min-h-screen bg-gray-50 flex justify-center py-6 px-4 md:py-12 animate-slideDown">
+      <div className="bg-white rounded-3xl shadow-xl p-4 md:p-8 w-full max-w-5xl border border-gray-100 relative">
         
         <div className="text-center mb-8">
             <h2 className="text-3xl font-extrabold text-gray-900 mb-2">My Requests 📦</h2>
@@ -79,7 +79,7 @@ const MyRequests = () => {
         </div>
 
         {/* TABS */}
-        <div className="flex justify-center gap-4 mb-8">
+        <div className="flex flex-wrap justify-center gap-4 mb-8">
             <button 
                 onClick={() => setActiveTab("direct")}
                 className={`px-6 py-2 rounded-full font-bold transition-all ${

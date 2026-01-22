@@ -112,8 +112,8 @@ const MyDonations = () => {
   }
 
   return (
-    <div className="min-h-screen bg-gray-100 flex justify-center py-12 px-4">
-      <div className="bg-white rounded-2xl shadow-xl p-8 w-full max-w-5xl space-y-6 border border-gray-200 relative">
+    <div className="min-h-screen bg-gray-100 flex justify-center py-6 px-4 md:py-12">
+      <div className="bg-white rounded-2xl shadow-xl p-4 md:p-8 w-full max-w-5xl space-y-6 border border-gray-200 relative">
         <h2 className="text-3xl font-extrabold text-green-700 text-center">
           My Donations 📦
         </h2>

@@ -38,8 +38,18 @@ export default function Login() {
   };
 
   return (
-    <div className="min-h-screen flex h-screen ">
-      {/* LEFT: Image Section (Hidden on mobile) */}
+    <div className="min-h-screen flex flex-col lg:flex-row relative bg-white justify-center lg:justify-start">
+      {/* Mobile Background Image */}
+      <div className="lg:hidden absolute inset-0 z-0">
+        <img 
+          src={master} 
+          alt="Background" 
+          className="w-full h-full object-cover"
+        />
+        <div className="absolute inset-0 bg-emerald-900/70 backdrop-blur-sm"></div>
+      </div>
+
+      {/* LEFT: Image Section (Hidden on mobile) - Desktop Only */}
       <div className="hidden lg:flex w-1/2 relative overflow-hidden bg-emerald-900">
         <div className="absolute inset-0 bg-emerald-900/40 mix-blend-multiply z-10"></div>
         <img
@@ -71,14 +81,25 @@ export default function Login() {
       </div>
 
       {/* RIGHT: Form Section */}
-      <div className="w-full lg:w-1/2 flex items-center justify-center p-8 bg-white relative">
+      <div className="w-full lg:w-1/2 flex items-center justify-center p-6 md:p-8 relative z-10">
         {/* Mobile Logo */}
-        <div className="absolute top-8 left-8 lg:hidden flex items-center gap-2">
+        <div className="absolute top-8 left-8 lg:hidden flex items-center gap-2 text-white">
            <img src={logo} alt="ShareBox" className="w-8 h-8 rounded-full" />
-           <span className="text-xl font-bold text-emerald-900">ShareBox</span>
+           <span className="text-xl font-bold">ShareBox</span>
         </div>
 
-        <div className="w-full max-w-md space-y-8 animate-slideDown">
+        {/* Back to Home Button */}
+        <Link 
+            to="/" 
+            className="absolute top-8 right-8 p-2 rounded-full backdrop-blur-md z-50 transition-colors text-white/80 hover:text-white bg-black/20 hover:bg-black/40 lg:text-gray-500 lg:bg-gray-100 lg:hover:bg-gray-200 lg:hover:text-gray-900"
+            title="Back to Home"
+        >
+            <svg xmlns="http://www.w3.org/2000/svg" className="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            </svg>
+        </Link>
+
+        <div className="w-full max-w-md space-y-8 animate-slideDown bg-white/95 lg:bg-white backdrop-blur-md lg:backdrop-blur-none p-8 rounded-3xl shadow-2xl lg:shadow-none border border-white/20 lg:border-none">
           <div className="text-center lg:text-left">
             <h2 className="text-3xl font-bold text-gray-900">Sign In</h2>
             <p className="text-gray-500 mt-2">
